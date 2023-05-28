@@ -1,0 +1,23 @@
+{% extends "first_app/base.html" %}
+
+{% block content %}
+
+
+<div class=" jumbotron jumbotron-fluid">
+    {% if user.is_authenticated %}
+    <h3>Hello <strong>{{my_dict}}</strong>,Please Upload .mp3 files</h3>
+    <br>
+    <form enctype ="multipart/form-data" method="POST" >
+        {% csrf_token %}
+        {{ song_form.as_p }}
+        <input type="submit" value="Upload">
+    </form>
+    <br>
+    <a class="btn btn-primary" href="{% url 'index' %}" role="button">Return to songs</a>
+    {% else %}
+    <h1>please Login / register to access this PORTAL</h1>
+    {% endif %}
+   
+</div>
+
+{% endblock %}

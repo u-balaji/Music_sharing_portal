@@ -1,0 +1,68 @@
+{% extends "first_app/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="jumbotron">
+    {% if user.is_authenticated %}
+    <h2>WELCOME  {{my_dict}} </h2>
+    <a class="btn btn-primary" href="{% url 'first_app:upload' %}" role="button">upload the music</a>
+    <h2>Your Music Files:</h2>
+    <ul>
+        {% if user_files %}
+        {% for music_file in user_files %}
+        <a href="" >{{music_file.audio_name}}</a>
+        
+        <br>
+        <audio controls>
+            <source src="{{music_file.audio_file.url}}" type="audio/mpeg">
+          Your browser does not support the audio element.
+          </audio>
+          <br>
+        {% endfor %}
+        {% else %}
+            <li>No. music files, please upload</li>
+        {% endif %}
+    </ul>
+
+    <h2>Public Music Files:</h2>
+    <ul>
+        {% if public_files %}
+        {% for music_file in public_files %}
+        <a href="" >{{music_file.audio_name}}</a>
+        <br>
+        <audio controls>
+            <source src="{{music_file.audio_file.url}}" type="audio/mpeg">
+          Your browser does not support the audio element.
+          </audio>
+          <br>
+        {% endfor %}
+        {% else %}
+            <li>There are No Public music files</li>
+        {% endif %}
+    </ul>
+    <h2>Accessed Music Files:</h2>
+    <ul>
+        {% if protected_files %}
+        {% for music_file in protected_files %}
+        <a href="" >{{music_file.audio_name}}</a>
+        <br>
+        
+        <audio controls>
+            <source src="{{music_file.audio_file.url}}" type="audio/mpeg">
+          Your browser does not support the audio element.
+          </audio>
+          <br>
+        {% endfor %}
+        {% else %}
+            <li>There are No accessed music files</li>
+        {% endif %}
+    </ul> 
+   
+    {% else %}
+    <h3 class="display-4" >Login or Register to access this PORTAL</h3>
+    {% endif %}
+      
+</div>
+
+{% endblock %}

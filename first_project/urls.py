@@ -19,9 +19,14 @@ from django.urls import path, include
 from django.contrib import admin
 from first_app import views
 
+from django.views.static import serve
+
+
 urlpatterns = [
     path('', views.index, name='index'),
     path('admin', admin.site.urls),
     path('first-app', include('first_app.urls')),
     path('logout', views.user_logout, name='logout'),
+    path(r'^media/(?P<path>.*)$', serve,{'document_root':       settings.MEDIA_ROOT}), 
+    path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}), 
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
